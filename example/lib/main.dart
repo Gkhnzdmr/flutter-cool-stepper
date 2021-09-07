@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String? selectedRole = 'Writer';
   final TextEditingController _nameCtrl = TextEditingController();
   final TextEditingController _emailCtrl = TextEditingController();
-
+  final PageController? controller = PageController();
   @override
   Widget build(BuildContext context) {
     final steps = [
@@ -48,6 +48,11 @@ class _MyHomePageState extends State<MyHomePage> {
           key: _formKey,
           child: Column(
             children: [
+              TextButton(
+                  onPressed: () {
+                    controller!.notifyListeners();
+                  },
+                  child: Text('Test')),
               _buildTextField(
                 labelText: 'Name',
                 validator: (value) {
@@ -103,6 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     final stepper = CoolStepper(
+      controller: controller,
       showErrorSnackbar: false,
       onCompleted: () {
         print('Steps completed!');

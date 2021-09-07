@@ -30,7 +30,7 @@ class CoolStepper extends StatefulWidget {
   ///
   /// default is false
   final bool showErrorSnackbar;
-
+  final PageController? controller;
   const CoolStepper({
     Key? key,
     required this.steps,
@@ -38,6 +38,7 @@ class CoolStepper extends StatefulWidget {
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 20.0),
     this.config = const CoolStepperConfig(),
     this.showErrorSnackbar = false,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -45,19 +46,25 @@ class CoolStepper extends StatefulWidget {
 }
 
 class _CoolStepperState extends State<CoolStepper> {
-  PageController? _controller = PageController();
+  //PageController? _controller = PageController();
 
   int currentStep = 0;
 
   @override
   void dispose() {
-    _controller!.dispose();
-    _controller = null;
+    widget.controller!.dispose();
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    widget.controller == PageController();
+    widget.controller!.addListener(onStepNext);
+  }
+
   Future<void>? switchToPage(int page) {
-    _controller!.animateToPage(
+    widget.controller!.animateToPage(
       page,
       duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
@@ -110,20 +117,11 @@ class _CoolStepperState extends State<CoolStepper> {
     }
   }
 
-  void onStepBack() {
-    if (!_isFirst(currentStep)) {
-      setState(() {
-        currentStep--;
-      });
-      switchToPage(currentStep);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final content = Expanded(
       child: PageView(
-        controller: _controller,
+        controller: widget.controller,
         physics: NeverScrollableScrollPhysics(),
         children: widget.steps.map((step) {
           return CoolStepperView(
@@ -135,71 +133,9 @@ class _CoolStepperState extends State<CoolStepper> {
       ),
     );
 
-    final counter = Container(
-      child: Text(
-        "${widget.config.stepText ?? 'STEP'} ${currentStep + 1} ${widget.config.ofText ?? 'OF'} ${widget.steps.length}",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-
-    String getNextLabel() {
-      String nextLabel;
-      if (_isLast(currentStep)) {
-        nextLabel = widget.config.finalText ?? 'FINISH';
-      } else {
-        if (widget.config.nextTextList != null) {
-          nextLabel = widget.config.nextTextList![currentStep];
-        } else {
-          nextLabel = widget.config.nextText ?? 'NEXT';
-        }
-      }
-      return nextLabel;
-    }
-
-    String getPrevLabel() {
-      String backLabel;
-      if (_isFirst(currentStep)) {
-        backLabel = '';
-      } else {
-        if (widget.config.backTextList != null) {
-          backLabel = widget.config.backTextList![currentStep - 1];
-        } else {
-          backLabel = widget.config.backText ?? 'PREV';
-        }
-      }
-      return backLabel;
-    }
-
-    final buttons = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          TextButton(
-            onPressed: onStepBack,
-            child: Text(
-              getPrevLabel(),
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
-          counter,
-          TextButton(
-            onPressed: onStepNext,
-            child: Text(
-              getNextLabel(),
-              style: TextStyle(
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-
     return Container(
       child: Column(
-        children: [content, buttons],
+        children: [content],
       ),
     );
   }
