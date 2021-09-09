@@ -60,7 +60,7 @@ class _CoolStepperState extends State<CoolStepper> {
   void initState() {
     super.initState();
     widget.controller == PageController();
-    widget.controller!.addListener(onStepNext);
+    // widget.controller!.addListener(onStepNext);
   }
 
   Future<void>? switchToPage(int page) {
