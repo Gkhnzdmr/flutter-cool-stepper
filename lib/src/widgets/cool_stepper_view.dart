@@ -23,7 +23,7 @@ class CoolStepperView extends StatelessWidget {
         ? Container(
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 5.0),
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(5.0),
             decoration: BoxDecoration(
               color: config!.headerColor ??
                   Theme.of(context).primaryColor.withOpacity(0.1),
