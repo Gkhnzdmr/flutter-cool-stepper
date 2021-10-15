@@ -22,7 +22,7 @@ class CoolStepperView extends StatelessWidget {
     final title = config!.isHeaderEnabled && step.isHeaderEnabled
         ? Container(
             width: double.infinity,
-            margin: EdgeInsets.only(bottom: 20.0),
+            margin: EdgeInsets.only(bottom: 5.0),
             padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               color: config!.headerColor ??
