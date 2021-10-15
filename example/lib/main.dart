@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final steps = [
       CoolStep(
         title: 'Basic Information',
-        subtitle: 'Please fill some of the basic information to get started',
+        subtitle: Text('Please fill some of the basic information to get started'),
         content: Form(
           key: _formKey,
           child: Column(
@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       CoolStep(
         title: 'Select your role',
-        subtitle: 'Choose a role that better defines you',
+        subtitle: Text('Choose a role that better defines you'),
         content: Container(
           child: Row(
             children: <Widget>[

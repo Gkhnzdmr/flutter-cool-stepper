@@ -60,15 +60,7 @@ class CoolStepperView extends StatelessWidget {
                       )
                     ]),
                 SizedBox(height: 5.0),
-                Text(
-                  step.subtitle,
-                  style: config!.subtitleTextStyle ??
-                      TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                ),
+                step.subtitle,
               ],
             ),
           )

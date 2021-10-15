@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class CoolStep {
   final String title;
-  final String subtitle;
+  final Widget subtitle;
   final Widget content;
   final String? Function()? validation;
   final bool isHeaderEnabled;
