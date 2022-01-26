@@ -23,7 +23,7 @@ class CoolStepperView extends StatelessWidget {
         ? Container(
             width: double.infinity,
             margin: EdgeInsets.only(bottom: 5.0),
-            padding: EdgeInsets.only(left: 20.0,right: 20.0,top: 20.0),
+            padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
             decoration: BoxDecoration(
               color: config!.headerColor ??
                   Theme.of(context).primaryColor.withOpacity(0.1),
@@ -38,7 +38,7 @@ class CoolStepperView extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: Text(
-                          step.title.toUpperCase(),
+                          step.title,
                           style: config!.titleTextStyle ??
                               TextStyle(
                                 fontSize: 16.0,
